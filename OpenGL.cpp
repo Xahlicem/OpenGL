@@ -6,7 +6,7 @@
 #include <GL\freeglut.h>
 #include <GLFW\glfw3.h>
 
-#include "include\Utils.hpp"
+#include "include\Texture.hpp"
 
 GLFWwindow* window;
 

@@ -111,12 +111,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="include\Utils.cpp" />
+    <ClCompile Include="include\Texture.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="OpenGL.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Utils.hpp" />
+    <ClInclude Include="include\Texture.hpp" />
     <ClInclude Include="OpenGL.hpp" />
   </ItemGroup>
   <ItemGroup>

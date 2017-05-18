@@ -27,7 +27,7 @@
     <ClCompile Include="OpenGL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="include\Utils.cpp">
+    <ClCompile Include="include\Texture.cpp">
       <Filter>Source Files\include</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,7 +35,7 @@
     <ClInclude Include="OpenGL.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Utils.hpp">
+    <ClInclude Include="include\Texture.hpp">
       <Filter>Header Files\include</Filter>
     </ClInclude>
   </ItemGroup>
