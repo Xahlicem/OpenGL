@@ -19,6 +19,9 @@
     <Filter Include="Header Files\include">
       <UniqueIdentifier>{01663c20-9f2f-413d-988e-c6d2199eb4b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\shaders">
+      <UniqueIdentifier>{401c0591-b08b-4af8-bc78-64c7d9f3d43a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -30,12 +33,27 @@
     <ClCompile Include="include\Texture.cpp">
       <Filter>Source Files\include</Filter>
     </ClCompile>
+    <ClCompile Include="include\shader.cpp">
+      <Filter>Source Files\include</Filter>
+    </ClCompile>
+    <ClCompile Include="include\VertexArrayObject.cpp">
+      <Filter>Source Files\include</Filter>
+    </ClCompile>
+    <ClCompile Include="include\VertexBufferObject.cpp">
+      <Filter>Source Files\include</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OpenGL.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Texture.hpp">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Shader.hpp">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\VertexObject.hpp">
       <Filter>Header Files\include</Filter>
     </ClInclude>
   </ItemGroup>
@@ -49,5 +67,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="res\shaders\shader.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="res\shaders\shader.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

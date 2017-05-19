@@ -1,12 +1,14 @@
-#include "OpenGL.hpp"
-
-#include <iostream>
+#include <stdio.h>
 
 #include <GL\glew.h>
 #include <GL\freeglut.h>
 #include <GLFW\glfw3.h>
 
 #include "include\Texture.hpp"
+#include "include\Shader.hpp"
+#include "include\VertexObject.hpp"
+
+#include "OpenGL.hpp"
 
 GLFWwindow* window;
 
@@ -16,6 +18,13 @@ float zoom = 1.0f;
 
 int init() {
 	if (!glfwInit()) return 0;
+
+
+	//glfwWindowHint(GLFW_SAMPLES, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
@@ -36,7 +45,7 @@ int init() {
 		return 0;
 	}
 
-	glfwSwapInterval(1);
+	glfwSwapInterval(0);
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
@@ -44,17 +53,38 @@ int init() {
 	glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
 
 	loadTextures();
+	loadShaders();
 
 	glfwShowWindow(window);
 	return 1;
 }
 
 void loop() {
+	//
+	float vertices[] {
+		-0.5F*width, 00.5F*height, 00,
+			-0.5F*width, -0.5F*height, 00,
+			00.5F*width, -0.5F*height, 00,
+			00.5F*width, 00.5F*height, 00
+	};
+
+	float textureCoords[] {
+		0, 0,
+			0, 1,
+			1, 1,
+			1, 0
+	};
+	int indices[] { 0, 1, 2, 0, 2, 3 };
+
+	VertexArrayObject vao(indices, 6, vertices, 6 * 3, textureCoords, 6 * 2);
+	//
 	while (!glfwWindowShouldClose(window)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		programDefault.bind();
 		glfwPollEvents();
 
 		glBindTexture(GL_TEXTURE_2D, texture_frog);
+		/*
 		glBegin(GL_QUADS);
 		{
 			glTexCoord2f(0, 0);
@@ -67,6 +97,12 @@ void loop() {
 			glVertex3f(0.5f*zoom, 0.5f*zoom, 0);
 		}
 		glEnd();
+		*/
+		vao.bind();
+		programDefault.setProjection(glm::fmat4());
+		glDrawElements(GL_TRIANGLES, vao.count(), GL_UNSIGNED_INT, 0);
+		//vao.unbind();
+
 		showFPS();
 		glfwSwapBuffers(window);
 	}
@@ -107,7 +143,7 @@ void showFPS() {
 	currentTime = glfwGetTime();
 	fps++;
 	if (currentTime - lastTime >= 1.0) { // If last cout was more than 1 sec ago
-		std::cout << fps << std::endl;
+		printf("%d\n", fps);
 		fps = 0;
 		lastTime += 1.0;
 	}
