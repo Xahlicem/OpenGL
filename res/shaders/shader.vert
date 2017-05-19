@@ -1,9 +1,9 @@
-#version 120
+#version 130
 
-attribute vec3 vertexPos;
-attribute vec2 textureCoords;
+in vec3 vertexPos;
+in vec2 textureCoords;
 
-varying vec2 texCoords;
+out vec2 texCoords;
 
 uniform mat4 projection;
 

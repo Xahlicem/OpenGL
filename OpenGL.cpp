@@ -81,6 +81,7 @@ void loop() {
 	while (!glfwWindowShouldClose(window)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		programDefault.bind();
+		glActiveTexture(GL_TEXTURE0);
 		glfwPollEvents();
 
 		glBindTexture(GL_TEXTURE_2D, texture_frog);
@@ -101,7 +102,7 @@ void loop() {
 		vao.bind();
 		programDefault.setProjection(glm::fmat4());
 		glDrawElements(GL_TRIANGLES, vao.count(), GL_UNSIGNED_INT, 0);
-		//vao.unbind();
+		vao.unbind();
 
 		showFPS();
 		glfwSwapBuffers(window);
