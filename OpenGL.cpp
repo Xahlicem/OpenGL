@@ -23,7 +23,7 @@ int init() {
 	//glfwWindowHint(GLFW_SAMPLES, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
+	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
@@ -61,22 +61,20 @@ int init() {
 
 void loop() {
 	//
-	float vertices[] {
-		-0.5F*width, 00.5F*height, 00,
-			-0.5F*width, -0.5F*height, 00,
-			00.5F*width, -0.5F*height, 00,
-			00.5F*width, 00.5F*height, 00
+	GLfloat vertices[] {
+		-1, 01, 00,
+		-1, -1, 00,
+		01, -1, 00,
+		01, 01, 00
 	};
 
-	float textureCoords[] {
+	GLfloat textureCoords[] {
 		0, 0,
-			0, 1,
-			1, 1,
-			1, 0
+		0, 1,
+		1, 1,
+		1, 0
 	};
-	int indices[] { 0, 1, 2, 0, 2, 3 };
-
-	VertexArrayObject vao(indices, 6, vertices, 6 * 3, textureCoords, 6 * 2);
+	GLuint indices[] { 0, 1, 2, 0, 2, 3 };
 	//
 	while (!glfwWindowShouldClose(window)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -85,27 +83,35 @@ void loop() {
 		glfwPollEvents();
 
 		glBindTexture(GL_TEXTURE_2D, texture_frog);
-		/*
-		glBegin(GL_QUADS);
-		{
-			glTexCoord2f(0, 0);
-			glVertex3f(-0.5f*zoom, 0.5f*zoom, 0);
-			glTexCoord2f(0, 0.25f);
-			glVertex3f(-0.5f*zoom, -0.5f*zoom, 0);
-			glTexCoord2f(0.25f, 0.25f);
-			glVertex3f(0.5f*zoom, -0.5f*zoom, 0);
-			glTexCoord2f(0.25f, 0);
-			glVertex3f(0.5f*zoom, 0.5f*zoom, 0);
-		}
-		glEnd();
-		*/
+		
+		GLfloat modelView[16];
+
+
+		VertexArrayObject vao(indices, 6 * sizeof(GLuint), vertices, (4 * 3) * sizeof(GLfloat), textureCoords, (4 * 2) * sizeof(GLfloat));
 		vao.bind();
-		programDefault.setProjection(glm::fmat4());
-		glDrawElements(GL_TRIANGLES, vao.count(), GL_UNSIGNED_INT, 0);
+		programDefault.setProjection(modelView);
+		//glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (void*)0);
 		vao.unbind();
+		vao.~VertexArrayObject();
 
 		showFPS();
 		glfwSwapBuffers(window);
+
+		switch (glGetError()) {
+		case GL_INVALID_ENUM:
+			printf("%s\n", "GL_INVALID_ENUM");
+			break;
+		case GL_INVALID_VALUE:
+			printf("%s\n", "GL_INVALID_VALUE");
+			break;
+		case GL_INVALID_OPERATION:
+			printf("%s\n", "GL_INVALID_OPERATION");
+			break;
+		case GL_NO_ERROR:
+			//printf("%s\n", "GL_NO_ERROR");
+			break;
+		}
 	}
 }
 

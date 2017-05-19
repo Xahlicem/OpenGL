@@ -33,13 +33,13 @@
     <ClCompile Include="include\Texture.cpp">
       <Filter>Source Files\include</Filter>
     </ClCompile>
-    <ClCompile Include="include\shader.cpp">
-      <Filter>Source Files\include</Filter>
-    </ClCompile>
     <ClCompile Include="include\VertexArrayObject.cpp">
       <Filter>Source Files\include</Filter>
     </ClCompile>
     <ClCompile Include="include\VertexBufferObject.cpp">
+      <Filter>Source Files\include</Filter>
+    </ClCompile>
+    <ClCompile Include="include\Shader.cpp">
       <Filter>Source Files\include</Filter>
     </ClCompile>
   </ItemGroup>

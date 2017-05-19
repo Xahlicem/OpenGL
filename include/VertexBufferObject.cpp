@@ -2,7 +2,7 @@
 
 #include "VertexObject.hpp"
 
-VertexBufferObject::VertexBufferObject(const int* data, int ptrSize) {
+VertexBufferObject::VertexBufferObject(const GLuint* data, GLsizeiptr ptrSize) {
 	glGenBuffers(1, &id);
 	target = GL_ELEMENT_ARRAY_BUFFER;
 	type = GL_INT;
@@ -11,7 +11,7 @@ VertexBufferObject::VertexBufferObject(const int* data, int ptrSize) {
 	setData(data);
 }
 
-VertexBufferObject::VertexBufferObject(const float* data, int axes, int ptrSize) {
+VertexBufferObject::VertexBufferObject(const GLfloat* data, GLuint axes, GLsizeiptr ptrSize) {
 	glGenBuffers(1, &id);
 	target = GL_ELEMENT_ARRAY_BUFFER;
 	type = GL_INT;
@@ -20,24 +20,26 @@ VertexBufferObject::VertexBufferObject(const float* data, int axes, int ptrSize)
 	setData(data);
 }
 
-void VertexBufferObject::setData(const int* data) {
+void VertexBufferObject::setData(const GLuint* data) {
 	bind();
 	glBufferData(target, pSize, data, GL_STATIC_DRAW);
 }
 
-void VertexBufferObject::setData(const float* data) {
+void VertexBufferObject::setData(const GLfloat* data) {
 	bind();
 	glBufferData(target, pSize, data, GL_STATIC_DRAW);
 }
 
-void VertexBufferObject::bind(int target, GLuint id) {
+void VertexBufferObject::bind(GLuint target, GLuint id) {
 	glBindBuffer(target, id);
 }
 
-void VertexBufferObject::bind() {
+GLuint VertexBufferObject::bind() {
 	bind(target, id);
+	return id;
 }
 
-void VertexBufferObject::unbind() {
+GLuint VertexBufferObject::unbind() {
 	bind(target, 0);
+	return id;
 }

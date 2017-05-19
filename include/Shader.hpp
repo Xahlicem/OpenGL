@@ -13,11 +13,12 @@ public:
 	void bind();
 	int getProgram();
 	void setProjection(glm::fmat4 data);
+	void setProjection(GLfloat* data);
 	void loadProgram(const char* vertFilePath, const char* fragFilePath);
 private:
 	GLuint id;
 	GLuint vShader, fShader;
-	GLuint projection = 0;
+	GLuint projection;
 
 	bool loadShader(const char* path, int id);
 	void compileShader(const char* code, int id, const char* path);

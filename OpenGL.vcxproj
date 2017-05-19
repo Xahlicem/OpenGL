@@ -112,7 +112,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="include\shader.cpp" />
+    <ClCompile Include="include\Shader.cpp" />
     <ClCompile Include="include\Texture.cpp" />
     <ClCompile Include="include\VertexArrayObject.cpp" />
     <ClCompile Include="include\VertexBufferObject.cpp" />

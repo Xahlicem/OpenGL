@@ -47,6 +47,10 @@ void Shader::setProjection(glm::fmat4 data) {
 	glUniformMatrix4fv(projection, 1, GL_FALSE, glm::value_ptr(data));
 }
 
+void Shader::setProjection(GLfloat* data) {
+	glUniformMatrix4fv(projection, 1, GL_FALSE, data);
+}
+
 void Shader::loadProgram(const char* vertFilePath, const char* fragFilePath) {
 
 	// Create the shaders
@@ -59,6 +63,7 @@ void Shader::loadProgram(const char* vertFilePath, const char* fragFilePath) {
 
 	glBindAttribLocation(id, 0, "vertexPos");
 	glBindAttribLocation(id, 1, "textureCoords");
+	glBindFragDataLocation(id, 0, "fragColor");
 
 	GLint Result = GL_FALSE;
 	int InfoLogLength;
