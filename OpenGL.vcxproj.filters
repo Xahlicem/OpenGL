@@ -42,6 +42,12 @@
     <ClCompile Include="include\Shader.cpp">
       <Filter>Source Files\include</Filter>
     </ClCompile>
+    <ClCompile Include="include\Camera.cpp">
+      <Filter>Source Files\include</Filter>
+    </ClCompile>
+    <ClCompile Include="include\Model.cpp">
+      <Filter>Source Files\include</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OpenGL.hpp">
@@ -54,6 +60,12 @@
       <Filter>Header Files\include</Filter>
     </ClInclude>
     <ClInclude Include="include\VertexObject.hpp">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Camera.hpp">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Model.hpp">
       <Filter>Header Files\include</Filter>
     </ClInclude>
   </ItemGroup>

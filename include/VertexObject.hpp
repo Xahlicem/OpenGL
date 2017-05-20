@@ -3,8 +3,8 @@
 
 class VertexBufferObject {
 public:
-	VertexBufferObject(const GLuint* data, GLsizeiptr ptrSize);
-	VertexBufferObject(const GLfloat* data, GLuint axes, GLsizeiptr ptrSize);
+	VertexBufferObject(GLuint* data, GLsizeiptr ptrSize);
+	VertexBufferObject(GLfloat* data, GLuint axes, GLsizeiptr ptrSize);
 
 	GLuint size;
 	GLenum type;
@@ -16,21 +16,24 @@ private:
 	GLuint id;
 	GLenum target;
 	GLsizeiptr pSize;
-	void setData(const GLuint* data);
-	void setData(const GLfloat* data);
+	void setData(GLuint* data);
+	void setData(GLfloat* data);
 };
 
 class VertexArrayObject {
 public:
 	~VertexArrayObject();
+	VertexArrayObject();
 	VertexArrayObject(GLuint* index, GLsizeiptr indexSize, GLfloat* vertices, GLsizeiptr verticesSize, GLfloat* textureCoords, GLsizeiptr textureCoordsSize);
 
+	void load(GLuint* index, GLsizeiptr indexSize, GLfloat* vertices, GLsizeiptr verticesSize, GLfloat* textureCoords, GLsizeiptr textureCoordsSize);
 
 	static void bind(GLuint id);
-	GLuint bind();
-	GLuint unbind();
+	void bind();
+	void unbind();
 
-	int count();
+	GLuint count();
+	GLuint getId();
 
 	VertexBufferObject addArray(GLfloat* data, GLuint dataSize, GLsizeiptr size);
 	VertexBufferObject addArray(VertexBufferObject vbo);
@@ -41,7 +44,7 @@ public:
 private:
 	GLuint id, vertId, textId, indexId;
 	GLuint arrays = 0;
-	GLuint length;
+	GLsizei length;
 };
 
 #endif

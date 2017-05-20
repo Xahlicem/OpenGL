@@ -1,8 +1,6 @@
 #ifndef SHADER_HPP
 #define SHADER_HPP
 
-#include <glm\glm.hpp>
-
 void loadShaders();
 
 class Shader {
@@ -12,16 +10,17 @@ public:
 
 	void bind();
 	int getProgram();
-	void setProjection(glm::fmat4 data);
-	void setProjection(GLfloat* data);
+	void setProjection(glm::mat4 data);
+	void setProjection(const GLfloat* data);
+	void setSampler(GLuint i);
 	void loadProgram(const char* vertFilePath, const char* fragFilePath);
 private:
 	GLuint id;
 	GLuint vShader, fShader;
-	GLuint projection;
+	GLuint projection, sampler;
 
-	bool loadShader(const char* path, int id);
-	void compileShader(const char* code, int id, const char* path);
+	bool loadShader(const char* path, GLuint id);
+	void compileShader(const char* code, GLuint id, const char* path);
 };
 
 extern Shader programDefault;

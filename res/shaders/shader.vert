@@ -1,7 +1,7 @@
 #version 330
 
-in vec3 vertexPos;
-in vec2 textureCoords;
+layout(location = 0) in vec3 vertexPos;
+layout(location = 1) in vec2 textureCoords;
 
 out vec2 texCoords;
 

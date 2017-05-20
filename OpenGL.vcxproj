@@ -112,6 +112,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="include\Camera.cpp" />
+    <ClCompile Include="include\Model.cpp" />
     <ClCompile Include="include\Shader.cpp" />
     <ClCompile Include="include\Texture.cpp" />
     <ClCompile Include="include\VertexArrayObject.cpp" />
@@ -120,6 +122,8 @@
     <ClCompile Include="OpenGL.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Camera.hpp" />
+    <ClInclude Include="include\Model.hpp" />
     <ClInclude Include="include\Shader.hpp" />
     <ClInclude Include="include\Texture.hpp" />
     <ClInclude Include="include\VertexObject.hpp" />

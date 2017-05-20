@@ -2,30 +2,30 @@
 
 #include "VertexObject.hpp"
 
-VertexBufferObject::VertexBufferObject(const GLuint* data, GLsizeiptr ptrSize) {
+VertexBufferObject::VertexBufferObject(GLuint* data, GLsizeiptr ptrSize) {
 	glGenBuffers(1, &id);
 	target = GL_ELEMENT_ARRAY_BUFFER;
-	type = GL_INT;
+	type = GL_UNSIGNED_SHORT;
 	size = 0;
 	pSize = ptrSize;
 	setData(data);
 }
 
-VertexBufferObject::VertexBufferObject(const GLfloat* data, GLuint axes, GLsizeiptr ptrSize) {
+VertexBufferObject::VertexBufferObject(GLfloat* data, GLuint axes, GLsizeiptr ptrSize) {
 	glGenBuffers(1, &id);
-	target = GL_ELEMENT_ARRAY_BUFFER;
-	type = GL_INT;
+	target = GL_ARRAY_BUFFER;
+	type = GL_FLOAT;
 	size = axes;
 	pSize = ptrSize;
 	setData(data);
 }
 
-void VertexBufferObject::setData(const GLuint* data) {
+void VertexBufferObject::setData(GLuint* data) {
 	bind();
 	glBufferData(target, pSize, data, GL_STATIC_DRAW);
 }
 
-void VertexBufferObject::setData(const GLfloat* data) {
+void VertexBufferObject::setData(GLfloat* data) {
 	bind();
 	glBufferData(target, pSize, data, GL_STATIC_DRAW);
 }

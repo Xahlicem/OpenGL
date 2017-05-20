@@ -11,6 +11,8 @@
 #define FOURCC_DXT3 0x33545844 // Equivalent to "DXT3" in ASCII
 #define FOURCC_DXT5 0x35545844 // Equivalent to "DXT5" in ASCII
 
+GLuint texture_frog;
+
 GLuint loadDDS(const char * imagepath) {
 
 	unsigned char header[124];
@@ -81,8 +83,8 @@ GLuint loadDDS(const char * imagepath) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 	//Setup texture scaling filtering
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	unsigned int blockSize = (format == GL_COMPRESSED_RGBA_S3TC_DXT1_EXT) ? 8 : 16;
 	unsigned int offset = 0;
@@ -104,4 +106,8 @@ GLuint loadDDS(const char * imagepath) {
 	free(buffer);
 
 	return textureID;
+}
+
+void loadTextures() {
+	texture_frog = loadDDS("res/FROG.DDS");
 }

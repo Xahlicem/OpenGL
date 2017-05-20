@@ -3,6 +3,8 @@
 #include <stdio.h>
 
 #include <GL\glew.h>
+
+#include <glm\glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Shader.hpp"
@@ -14,9 +16,6 @@ void loadShaders() {
 }
 
 Shader::Shader() {
-	id = 0;
-	vShader = 0;
-	fShader = 0;
 }
 
 Shader::~Shader() {
@@ -43,12 +42,16 @@ int Shader::getProgram() {
 	return id;
 }
 
-void Shader::setProjection(glm::fmat4 data) {
+void Shader::setProjection(glm::mat4 data) {
 	glUniformMatrix4fv(projection, 1, GL_FALSE, glm::value_ptr(data));
 }
 
-void Shader::setProjection(GLfloat* data) {
+void Shader::setProjection(const GLfloat* data) {
 	glUniformMatrix4fv(projection, 1, GL_FALSE, data);
+}
+
+void Shader::setSampler(GLuint i) {
+	glUniform1i(sampler, i);
 }
 
 void Shader::loadProgram(const char* vertFilePath, const char* fragFilePath) {
@@ -60,10 +63,6 @@ void Shader::loadProgram(const char* vertFilePath, const char* fragFilePath) {
 
 	loadShader(vertFilePath, vShader);
 	loadShader(fragFilePath, fShader);
-
-	glBindAttribLocation(id, 0, "vertexPos");
-	glBindAttribLocation(id, 1, "textureCoords");
-	glBindFragDataLocation(id, 0, "fragColor");
 
 	GLint Result = GL_FALSE;
 	int InfoLogLength;
@@ -86,9 +85,10 @@ void Shader::loadProgram(const char* vertFilePath, const char* fragFilePath) {
 	}
 
 	projection = glGetUniformLocation(id, "projection");
+	sampler = glGetUniformLocation(id, "sampler");
 }
 
-bool Shader::loadShader(const char* path, int id) {
+bool Shader::loadShader(const char* path, GLuint id) {
 	FILE* file;
 
 	// Read the Shader code from the file
@@ -112,7 +112,7 @@ bool Shader::loadShader(const char* path, int id) {
 	return false;
 }
 
-void Shader::compileShader(const char* code, int id, const char* path) {
+void Shader::compileShader(const char* code, GLuint id, const char* path) {
 	GLint Result = GL_FALSE;
 	int InfoLogLength;
 
