@@ -6,5 +6,6 @@ extern GLuint texture_frog;
 GLuint loadDDS(const char * imagepath);
 
 void loadTextures();
+void setTexure(GLuint texture);
 
 #endif

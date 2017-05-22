@@ -111,3 +111,10 @@ GLuint loadDDS(const char * imagepath) {
 void loadTextures() {
 	texture_frog = loadDDS("res/FROG.DDS");
 }
+
+GLuint lastTexture;
+
+void setTexure(GLuint texture) {
+	if (texture == lastTexture) return;
+	glBindTexture(GL_TEXTURE_2D, texture);
+}

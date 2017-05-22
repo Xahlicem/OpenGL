@@ -52,12 +52,22 @@ int init() {
 	}
 	error("GLEW");
 
-	glfwSwapInterval(0);
-	//glEnable(GL_TEXTURE_2D);
-	//glEnable(GL_DEPTH_TEST);
+	int swap = 0;
+	glfwSwapInterval(swap);
+
+	#ifdef _WIN32
+	typedef BOOL(WINAPI *PFNWGLSWAPINTERVALEXTPROC)(int interval);
+	PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT = NULL;
+	wglSwapIntervalEXT = (PFNWGLSWAPINTERVALEXTPROC)wglGetProcAddress("wglSwapIntervalEXT");
+	if (wglSwapIntervalEXT)
+		wglSwapIntervalEXT(swap);
+	#endif
+
+	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	error("enable");
+
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 	loadTextures();
@@ -69,75 +79,30 @@ int init() {
 }
 
 void loop() {
-	
-	GLfloat vertices[] {
-		-1, 01, 00,
-		-1, -1, 00,
-		01, -1, 00,
-		01, 01, 00
-	};
-
-
-	GLfloat vertices1[] {
-		00, 02, 00,
-		00, 00, 00,
-		02, 00, 00,
-		02, 02, 00
-	};
-
-
-	GLfloat vertices2[] {
-		00, 01.5f, -0.3f,
-		00, 00, -0.3f,
-		01.5f, 00, -0.3f,
-		01.5f, 01.5f, -0.3f
-	};
-
-	GLfloat textureCoords[] {
-		0, 0,
-		0, 0.25f,
-		0.25f, 0.25f,
-		0.25f, 0
-	};
-	GLuint indices[] { 0, 1, 2, 0, 2, 3 };
-
-	VertexArrayObject vao(indices, sizeof(indices), vertices, sizeof(vertices), textureCoords, sizeof(textureCoords));
-	
-	VertexArrayObject vao1(indices, sizeof(indices), vertices1, sizeof(vertices1), textureCoords, sizeof(textureCoords));
-
-	VertexArrayObject vao2(indices, sizeof(indices), vertices2, sizeof(vertices2), textureCoords, sizeof(textureCoords));
-	
-
-	Model m(-0.25, -1, 2, 2, texture_frog);
-	Model m1(0, 0, 2, 2, texture_frog);
-	Model m2(1, 0, 2, 2, texture_frog);
+	Model m(0, 0, 2, 2, 0.05f, texture_frog);
+	Model m1(-1, 1, 2, 2, 0.02f, texture_frog);
+	Model m2(0.5f, 0, 2, 2, -0.2f, texture_frog);
+	Model m3(0.75f, 0, 2, 2, 0.03f, texture_frog);
 	cam = Camera(width, height);
 	cam.setScale(zoom);
 	//
 	while (!glfwWindowShouldClose(window)) {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		programDefault.bind();
-		glActiveTexture(GL_TEXTURE0);
 		glfwPollEvents();
-
-		glBindTexture(GL_TEXTURE_2D, texture_frog);
+		programDefault.bind();
 		programDefault.setSampler(0);
-
 		programDefault.setProjection(cam.getView());
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		m.draw();
 		m1.draw();
-		m2.draw();
-		vao2.bind();
-		glDrawElements(GL_TRIANGLES, vao2.count(), GL_UNSIGNED_INT, (GLvoid*)0);
-		vao.bind();
-		glDrawElements(GL_TRIANGLES, vao.count(), GL_UNSIGNED_INT, (GLvoid*)0);
-		vao1.bind();
-		glDrawElements(GL_TRIANGLES, vao1.count(), GL_UNSIGNED_INT, (GLvoid*)0);
+		//m2.draw();
+		//m3.draw();
+
 		glBindVertexArray(0);
 
 		showFPS();
+		error("loop");
 		glfwSwapBuffers(window);
-		//error("loop");
 	}
 }
 
@@ -165,12 +130,14 @@ void keyCall(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	if (action == GLFW_PRESS || action == GLFW_REPEAT) {
 		int i = 1;
 		if (mods == GLFW_MOD_SHIFT) i = 10;
-		if (key == GLFW_KEY_UP) zoom += 0.5f * i;
-		if (key == GLFW_KEY_DOWN) zoom -= 0.5f * i;
+		if (key == GLFW_KEY_UP) y += 0.5f * i;
+		if (key == GLFW_KEY_DOWN) y -= 0.5f * i;
 		if (key == GLFW_KEY_LEFT) x -= 0.5f * i;
 		if (key == GLFW_KEY_RIGHT) x += 0.5f * i;
+		if (key == GLFW_KEY_E) zoom += 0.5f * i;
+		if (key == GLFW_KEY_Q) zoom -= 0.5f * i;
 		cam.setScale(zoom);
-		cam.setPos(x, y);
+		cam.setPos(-x, -y);
 	}
 }
 
