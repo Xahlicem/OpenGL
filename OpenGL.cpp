@@ -80,11 +80,9 @@ int init() {
 }
 
 void loop() {
-	model = Model(0, 0, 2, 2, 0.01f, texture_frog);
+	model.load(0, 0, 2, 2, 0.01f, texture_frog);
 
-	model.vao.rebindPosition(-2, -2);
-
-	Model m(0.5f, 0.25f, 2, 2, 0.01f, texture_frog);
+	Model m(3, 3, 2, 2, 0.01f, texture_frog);
 	Model m1(0, 2, 2, 2, 0.02f, texture_frog);
 	Model m2(1, 0, 2, 2, -0.2f, texture_frog);
 	Model m3(2, 0, 2, 2, 0.03f, texture_frog);
@@ -92,7 +90,6 @@ void loop() {
 	cam.setScale(zoom);
 	//
 	while (!glfwWindowShouldClose(window)) {
-		glfwPollEvents();
 		programDefault.bind();
 		programDefault.setSampler(0);
 		programDefault.setProjection(cam.getView());
@@ -109,6 +106,7 @@ void loop() {
 		showFPS();
 		error("loop");
 		glfwSwapBuffers(window);
+		glfwPollEvents();
 	}
 }
 
@@ -146,7 +144,7 @@ void keyCall(GLFWwindow* window, int key, int scancode, int action, int mods) {
 		zoom = zoom > 255 ? 255 : zoom;
 		zoom = zoom < 0 ? 0 : zoom;
 		cam.setScale(zoom);
-		//cam.setPos(-x, -y);
+		cam.setPos(-x, -y);
 		model.vao.rebindPosition(x, y);
 	}
 }

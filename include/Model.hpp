@@ -5,7 +5,7 @@ class Model {
 public:
 	Model();
 	Model(float xPos, float yPos, float width, float height, float z, const GLuint textureId);
-	Model(const VertexArrayObject v, const GLuint textureId);
+	void load(float xPos, float yPos, float width, float height, float z, const GLuint textureId);
 	void draw();
 	GLuint getTextureId();
 	VertexArrayObject vao;

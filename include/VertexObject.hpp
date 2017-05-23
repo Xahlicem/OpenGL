@@ -16,9 +16,9 @@ public:
 	void load(GLfloat* data, GLuint axes, GLsizeiptr ptrSize, bool pos);
 
 	static void bind(GLuint target, GLuint id);
-	GLuint bind();
-	GLuint unbind();
-	GLuint rebind(const GLfloat* data);
+	void bind();
+	void unbind();
+	void rebind(const GLfloat* data);
 
 private:
 	GLuint id = 0;

@@ -10,6 +10,10 @@ Model::Model() {
 }
 
 Model::Model(float x, float y, float width, float height, float z, GLuint textureId) {
+	load(x, y, width, height, z, textureId);
+}
+
+void Model::load(float x, float y, float width, float height, float z, GLuint textureId) {
 	float h = height / 2.0f;
 	float w = width / 2.0f;
 	GLfloat vertices[]{
@@ -37,11 +41,6 @@ Model::Model(float x, float y, float width, float height, float z, GLuint textur
 
 	vao.load(indices, sizeof(indices), pos, sizeof(pos), vertices, sizeof(vertices), textureCoords, sizeof(textureCoords));
 
-	texture = textureId;
-}
-
-Model::Model(const VertexArrayObject v, const GLuint textureId) {
-	vao = v;
 	texture = textureId;
 }
 

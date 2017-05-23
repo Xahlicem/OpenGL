@@ -54,11 +54,7 @@ void VertexArrayObject::unbind() {
 }
 
 void VertexArrayObject::rebindPosition(const GLfloat* data) {
-	disableArray(0);
 	position.rebind(data);
-	enableArray(0);
-	//position.bind();
-	//glVertexAttribPointer(0, position.size, position.type, false, 0, 0);
 }
 
 void VertexArrayObject::rebindPosition(GLfloat x, GLfloat y) {

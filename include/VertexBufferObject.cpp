@@ -53,20 +53,16 @@ void VertexBufferObject::bind(GLuint target, GLuint id) {
 	glBindBuffer(target, id);
 }
 
-GLuint VertexBufferObject::bind() {
+void VertexBufferObject::bind() {
 	bind(target, id);
-	return id;
 }
 
-GLuint VertexBufferObject::unbind() {
+void VertexBufferObject::unbind() {
 	bind(target, 0);
-	return id;
 }
 
-GLuint VertexBufferObject::rebind(const GLfloat* data) {
+void VertexBufferObject::rebind(const GLfloat* data) {
 	bind();
-	glBufferData(target, pSize, nullptr, GL_DYNAMIC_DRAW);
 	glBufferSubData(target, 0, pSize, data);
 	unbind();
-	return id;
 }
