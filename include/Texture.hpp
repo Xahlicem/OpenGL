@@ -2,6 +2,7 @@
 #define TEXTURE_HPP
 
 extern GLuint texture_frog;
+extern GLuint textureTiles;
 // Load a .DDS file using GLFW's own loader
 GLuint loadDDS(const char * imagepath);
 

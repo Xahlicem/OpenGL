@@ -13,21 +13,29 @@ Model::Model(float x, float y, float width, float height, float z, GLuint textur
 	float h = height / 2.0f;
 	float w = width / 2.0f;
 	GLfloat vertices[]{
-		x - w, y + h, z,
-		x - w, y - h, z,
-		x + w, y - h, z,
-		x + w, y + h, z
+		-w, h, z,
+		-w, -h, z,
+		w, -h, z,
+		w, h, z
 	};
 
-	GLfloat textureCoords[]{
+	GLfloat textureCoords[] {
 		0, 0,
 		0, 0.25f,
 		0.25f, 0.25f,
 		0.25f, 0
 	};
-	GLuint indices[]{ 0, 1, 2, 0, 2, 3 };
 
-	vao.load(indices, sizeof(indices), vertices, sizeof(vertices), textureCoords, sizeof(textureCoords));
+	GLfloat pos[] {
+		x, y,
+		x, y,
+		x, y,
+		x, y
+	};
+
+	GLushort indices[]{ 0, 1, 2, 0, 2, 3 };
+
+	vao.load(indices, sizeof(indices), pos, sizeof(pos), vertices, sizeof(vertices), textureCoords, sizeof(textureCoords));
 
 	texture = textureId;
 }
@@ -40,11 +48,7 @@ Model::Model(const VertexArrayObject v, const GLuint textureId) {
 void Model::draw() {
 	vao.bind();
 	setTexure(texture);
-	glDrawElements(GL_TRIANGLES, vao.count(), GL_UNSIGNED_INT, (GLvoid*)0);
-}
-
-VertexArrayObject Model::getVao() {
-	return vao;
+	glDrawElements(GL_TRIANGLES, vao.count(), GL_UNSIGNED_SHORT, (GLvoid*)0);
 }
 
 GLuint Model::getTextureId() {

@@ -132,6 +132,7 @@
   <ItemGroup>
     <Image Include="res\FROG.DDS" />
     <Image Include="res\RABBIT.DDS" />
+    <Image Include="res\TILES.DDS" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

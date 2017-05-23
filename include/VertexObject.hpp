@@ -3,46 +3,56 @@
 
 class VertexBufferObject {
 public:
-	VertexBufferObject(GLuint* data, GLsizeiptr ptrSize);
+	~VertexBufferObject();
+	VertexBufferObject();
+	VertexBufferObject(GLushort* data, GLsizeiptr ptrSize);
 	VertexBufferObject(GLfloat* data, GLuint axes, GLsizeiptr ptrSize);
 
 	GLuint size;
 	GLenum type;
 
+	void load(GLushort* data, GLsizeiptr ptrSize);
+	void load(GLfloat* data, GLuint axes, GLsizeiptr ptrSize);
+	void load(GLfloat* data, GLuint axes, GLsizeiptr ptrSize, bool pos);
+
 	static void bind(GLuint target, GLuint id);
 	GLuint bind();
 	GLuint unbind();
+	GLuint rebind(const GLfloat* data);
+
 private:
-	GLuint id;
+	GLuint id = 0;
 	GLenum target;
 	GLsizeiptr pSize;
-	void setData(GLuint* data);
-	void setData(GLfloat* data);
+	void setData(GLushort* data);
+	void setData(GLfloat* data, bool dynamic);
 };
 
 class VertexArrayObject {
 public:
 	~VertexArrayObject();
 	VertexArrayObject();
-	VertexArrayObject(GLuint* index, GLsizeiptr indexSize, GLfloat* vertices, GLsizeiptr verticesSize, GLfloat* textureCoords, GLsizeiptr textureCoordsSize);
+	VertexArrayObject(GLushort* index, GLsizeiptr indexSize, GLfloat* pos, GLsizeiptr posSize, GLfloat* vertices, GLsizeiptr verticesSize, GLfloat* textureCoords, GLsizeiptr textureCoordsSize);
 
-	void load(GLuint* index, GLsizeiptr indexSize, GLfloat* vertices, GLsizeiptr verticesSize, GLfloat* textureCoords, GLsizeiptr textureCoordsSize);
+	void load(GLushort* index, GLsizeiptr indexSize, GLfloat* pos, GLsizeiptr posSize, GLfloat* vertices, GLsizeiptr verticesSize, GLfloat* textureCoords, GLsizeiptr textureCoordsSize);
 
 	static void bind(GLuint id);
 	void bind();
 	void unbind();
 
+	void rebindPosition(const GLfloat* data);
+	void rebindPosition(GLfloat x, GLfloat y);
+
 	GLuint count();
 	GLuint getId();
 
-	VertexBufferObject addArray(GLfloat* data, GLuint dataSize, GLsizeiptr size);
-	VertexBufferObject addArray(VertexBufferObject vbo);
-	VertexBufferObject addIndex(GLuint* index, GLsizeiptr indexSize);
+	void addArray(VertexBufferObject vbo);
 
 	void enableArray(GLuint i);
 	void disableArray(GLuint i);
 private:
-	GLuint id, vertId, textId, indexId;
+	GLuint id = 0;
+	VertexBufferObject position, vertex, texture, indices;
 	GLuint arrays = 0;
 	GLsizei length;
 };

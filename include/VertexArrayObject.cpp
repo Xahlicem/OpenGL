@@ -3,32 +3,42 @@
 #include "VertexObject.hpp"
 
 VertexArrayObject::~VertexArrayObject() {
+	if (id == 0) return;
 	bind();
-	if (vertId != 0) glDeleteBuffers(1, &vertId);
-	if (textId != 0) glDeleteBuffers(1, &textId);
-	if (indexId != 0) glDeleteBuffers(1, &indexId);
+	position.~VertexBufferObject();
+	vertex.~VertexBufferObject();
+	texture.~VertexBufferObject();
+	indices.~VertexBufferObject();
 	unbind();
 
 	glDeleteVertexArrays(1, &id);
 }
 
 VertexArrayObject::VertexArrayObject() {
-	glGenVertexArrays(1, &id);
 }
 
-VertexArrayObject::VertexArrayObject(GLuint* index, GLsizeiptr indexSize, GLfloat* vertices, GLsizeiptr verticesSize, GLfloat* textureCoords, GLsizeiptr textureCoordsSize) {
-	glGenVertexArrays(1, &id);
-	load(index, indexSize, vertices, verticesSize, textureCoords, textureCoordsSize);
+VertexArrayObject::VertexArrayObject(GLushort* index, GLsizeiptr indexSize, GLfloat* pos, GLsizeiptr posSize, GLfloat* vertices, GLsizeiptr verticesSize, GLfloat* textureCoords, GLsizeiptr textureCoordsSize) {
+	load(index, indexSize, pos, posSize, vertices, verticesSize, textureCoords, textureCoordsSize);
 }
 
-void VertexArrayObject::load(GLuint* index, GLsizeiptr indexSize, GLfloat* vertices, GLsizeiptr verticesSize, GLfloat* textureCoords, GLsizeiptr textureCoordsSize) {
+void VertexArrayObject::load(GLushort* index, GLsizeiptr indexSize, GLfloat* pos, GLsizeiptr posSize, GLfloat* vertices, GLsizeiptr verticesSize, GLfloat* textureCoords, GLsizeiptr textureCoordsSize) {
+	glGenVertexArrays(1, &id);
 	bind();
-	vertId = addArray(vertices, verticesSize, 3).unbind();
-	textId = addArray(textureCoords, textureCoordsSize, 2).unbind();
-	VertexBufferObject vbo = addIndex(index, indexSize);
+	position.load(pos, 2, posSize, true);
+	addArray(position);
+
+	vertex.load(vertices, 3, verticesSize);
+	addArray(vertex);
+
+	texture.load(textureCoords, 2, textureCoordsSize);
+	addArray(texture);
+	texture.unbind();
+
+	indices.load(index, indexSize);
 	unbind();
-	indexId = vbo.bind();
-	length = 6;
+	indices.unbind();
+
+	length = indexSize / sizeof(GLushort);
 }
 
 void VertexArrayObject::bind(GLuint id) {
@@ -43,6 +53,24 @@ void VertexArrayObject::unbind() {
 	bind(0);
 }
 
+void VertexArrayObject::rebindPosition(const GLfloat* data) {
+	disableArray(0);
+	position.rebind(data);
+	enableArray(0);
+	//position.bind();
+	//glVertexAttribPointer(0, position.size, position.type, false, 0, 0);
+}
+
+void VertexArrayObject::rebindPosition(GLfloat x, GLfloat y) {
+	const GLfloat data[] {
+		x, y,
+		x, y,
+		x, y,
+		x, y
+	};
+	rebindPosition(data);
+}
+
 GLuint VertexArrayObject::count() {
 	return length;
 }
@@ -51,22 +79,9 @@ GLuint VertexArrayObject::getId() {
 	return id;
 }
 
-VertexBufferObject VertexArrayObject::addArray(GLfloat* data, GLuint dataSize, GLsizeiptr size) {
-	VertexBufferObject vbo(data, size, dataSize);
-	addArray(vbo);
-	return vbo;
-}
-
-VertexBufferObject VertexArrayObject::addArray(VertexBufferObject vbo) {
+void VertexArrayObject::addArray(VertexBufferObject vbo) {
 	glVertexAttribPointer(arrays, vbo.size, vbo.type, false, 0, (GLvoid*)0);
 	enableArray(arrays++);
-	return vbo;
-}
-
-VertexBufferObject VertexArrayObject::addIndex(GLuint* index, GLsizeiptr indexSize) {
-	VertexBufferObject vbo(index, indexSize);
-	vbo.bind();
-	return vbo;
 }
 
 void VertexArrayObject::enableArray(GLuint i) {

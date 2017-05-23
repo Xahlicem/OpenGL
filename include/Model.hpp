@@ -7,11 +7,11 @@ public:
 	Model(float xPos, float yPos, float width, float height, float z, const GLuint textureId);
 	Model(const VertexArrayObject v, const GLuint textureId);
 	void draw();
-	VertexArrayObject getVao();
 	GLuint getTextureId();
-private:
 	VertexArrayObject vao;
-	GLuint texture, vaoId;
+private:
+	GLuint texture;
+	GLfloat position[8];
 };
 
 #endif

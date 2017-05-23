@@ -12,6 +12,7 @@
 #define FOURCC_DXT5 0x35545844 // Equivalent to "DXT5" in ASCII
 
 GLuint texture_frog;
+GLuint textureTiles;
 
 GLuint loadDDS(const char * imagepath) {
 
@@ -110,6 +111,7 @@ GLuint loadDDS(const char * imagepath) {
 
 void loadTextures() {
 	texture_frog = loadDDS("res/FROG.DDS");
+	textureTiles = loadDDS("res/TILES.DDS");
 }
 
 GLuint lastTexture;

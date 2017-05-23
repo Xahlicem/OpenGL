@@ -36,7 +36,6 @@ void Camera::setPos(float x, float y) {
 }
 
 void Camera::setScale(float zoom) {
-	mat4 rotation = rotate(iMat, 1.57f, vec3(0, 0, 1));
 	scaling = scale(iMat, vec3(zoom, zoom, 1.0f));
-	view = projection * rotation * translation * scaling;
+	view = projection * translation * scaling;
 }

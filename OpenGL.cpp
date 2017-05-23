@@ -19,6 +19,7 @@ float width = 800.0f;
 float height = 600.0f;
 float zoom = 64.0f;
 float x, y;
+Model model;
 Camera cam;
 
 int init() {
@@ -55,13 +56,13 @@ int init() {
 	int swap = 0;
 	glfwSwapInterval(swap);
 
-	#ifdef _WIN32
+#ifdef _WIN32
 	typedef BOOL(WINAPI *PFNWGLSWAPINTERVALEXTPROC)(int interval);
 	PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT = NULL;
 	wglSwapIntervalEXT = (PFNWGLSWAPINTERVALEXTPROC)wglGetProcAddress("wglSwapIntervalEXT");
 	if (wglSwapIntervalEXT)
 		wglSwapIntervalEXT(swap);
-	#endif
+#endif
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
@@ -79,10 +80,14 @@ int init() {
 }
 
 void loop() {
-	Model m(0, 0, 2, 2, 0.05f, texture_frog);
-	Model m1(-1, 1, 2, 2, 0.02f, texture_frog);
-	Model m2(0.5f, 0, 2, 2, -0.2f, texture_frog);
-	Model m3(0.75f, 0, 2, 2, 0.03f, texture_frog);
+	model = Model(0, 0, 2, 2, 0.01f, texture_frog);
+
+	model.vao.rebindPosition(-2, -2);
+
+	Model m(0.5f, 0.25f, 2, 2, 0.01f, texture_frog);
+	Model m1(0, 2, 2, 2, 0.02f, texture_frog);
+	Model m2(1, 0, 2, 2, -0.2f, texture_frog);
+	Model m3(2, 0, 2, 2, 0.03f, texture_frog);
 	cam = Camera(width, height);
 	cam.setScale(zoom);
 	//
@@ -93,10 +98,11 @@ void loop() {
 		programDefault.setProjection(cam.getView());
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		model.draw();
 		m.draw();
 		m1.draw();
-		//m2.draw();
-		//m3.draw();
+		m2.draw();
+		m3.draw();
 
 		glBindVertexArray(0);
 
@@ -136,8 +142,12 @@ void keyCall(GLFWwindow* window, int key, int scancode, int action, int mods) {
 		if (key == GLFW_KEY_RIGHT) x += 0.5f * i;
 		if (key == GLFW_KEY_E) zoom += 0.5f * i;
 		if (key == GLFW_KEY_Q) zoom -= 0.5f * i;
+		if (key == GLFW_KEY_ESCAPE) glfwSetWindowShouldClose(window, GL_TRUE);
+		zoom = zoom > 255 ? 255 : zoom;
+		zoom = zoom < 0 ? 0 : zoom;
 		cam.setScale(zoom);
-		cam.setPos(-x, -y);
+		//cam.setPos(-x, -y);
+		model.vao.rebindPosition(x, y);
 	}
 }
 

@@ -76,6 +76,9 @@
     <Image Include="res\RABBIT.DDS">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\TILES.DDS">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
