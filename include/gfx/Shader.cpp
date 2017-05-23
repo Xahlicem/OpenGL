@@ -1,11 +1,9 @@
 #pragma warning(disable:4996)
 
 #include <stdio.h>
+#include <stdlib.h>
 
-#include <GL\glew.h>
-
-#include <glm\glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include <GL/glew.h>
 
 #include "Shader.hpp"
 
@@ -38,12 +36,7 @@ void Shader::bind() {
 }
 
 int Shader::getProgram() {
-	//printf("%d\n", program);
 	return id;
-}
-
-void Shader::setProjection(glm::mat4 data) {
-	glUniformMatrix4fv(projection, 1, GL_FALSE, glm::value_ptr(data));
 }
 
 void Shader::setProjection(const GLfloat* data) {

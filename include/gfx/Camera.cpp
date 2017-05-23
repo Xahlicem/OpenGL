@@ -1,5 +1,6 @@
-#include <glm\glm.hpp>
-#include <glm\gtc\matrix_transform.hpp>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "Camera.hpp"
 
@@ -27,6 +28,10 @@ Camera::Camera(float width, float height) {
 
 mat4 Camera::getView() {
 	return view;
+}
+
+float* Camera::getProjection() {
+	return value_ptr(view);
 }
 
 void Camera::setPos(float x, float y) {

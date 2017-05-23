@@ -22,6 +22,18 @@
     <Filter Include="Resource Files\shaders">
       <UniqueIdentifier>{401c0591-b08b-4af8-bc78-64c7d9f3d43a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\include\level">
+      <UniqueIdentifier>{97d68947-0f77-45dd-9af0-f5c5c793a459}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\include\level">
+      <UniqueIdentifier>{d033d352-4731-4cf3-b317-cc1b020da302}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\include\gfx">
+      <UniqueIdentifier>{12a0037b-0cfc-493f-928f-ff90db5b8169}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\include\gfx">
+      <UniqueIdentifier>{b075a7a9-4546-4e6c-9d70-4573ec7647c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -30,43 +42,49 @@
     <ClCompile Include="OpenGL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="include\Texture.cpp">
-      <Filter>Source Files\include</Filter>
-    </ClCompile>
     <ClCompile Include="include\VertexArrayObject.cpp">
       <Filter>Source Files\include</Filter>
     </ClCompile>
     <ClCompile Include="include\VertexBufferObject.cpp">
       <Filter>Source Files\include</Filter>
     </ClCompile>
-    <ClCompile Include="include\Shader.cpp">
-      <Filter>Source Files\include</Filter>
+    <ClCompile Include="include\gfx\Camera.cpp">
+      <Filter>Source Files\include\gfx</Filter>
     </ClCompile>
-    <ClCompile Include="include\Camera.cpp">
-      <Filter>Source Files\include</Filter>
+    <ClCompile Include="include\gfx\Model.cpp">
+      <Filter>Source Files\include\gfx</Filter>
     </ClCompile>
-    <ClCompile Include="include\Model.cpp">
-      <Filter>Source Files\include</Filter>
+    <ClCompile Include="include\gfx\Shader.cpp">
+      <Filter>Source Files\include\gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="include\gfx\Texture.cpp">
+      <Filter>Source Files\include\gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="include\level\level.cpp">
+      <Filter>Source Files\include\level</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OpenGL.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Texture.hpp">
-      <Filter>Header Files\include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Shader.hpp">
-      <Filter>Header Files\include</Filter>
-    </ClInclude>
     <ClInclude Include="include\VertexObject.hpp">
       <Filter>Header Files\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Camera.hpp">
-      <Filter>Header Files\include</Filter>
+    <ClInclude Include="include\gfx\Camera.hpp">
+      <Filter>Header Files\include\gfx</Filter>
     </ClInclude>
-    <ClInclude Include="include\Model.hpp">
-      <Filter>Header Files\include</Filter>
+    <ClInclude Include="include\gfx\Model.hpp">
+      <Filter>Header Files\include\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gfx\Shader.hpp">
+      <Filter>Header Files\include\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gfx\Texture.hpp">
+      <Filter>Header Files\include\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="include\level\level.hpp">
+      <Filter>Header Files\include\level</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

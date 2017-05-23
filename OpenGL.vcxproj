@@ -112,20 +112,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="include\Camera.cpp" />
-    <ClCompile Include="include\Model.cpp" />
-    <ClCompile Include="include\Shader.cpp" />
-    <ClCompile Include="include\Texture.cpp" />
+    <ClCompile Include="include\gfx\Camera.cpp" />
+    <ClCompile Include="include\gfx\Model.cpp" />
+    <ClCompile Include="include\gfx\Shader.cpp" />
+    <ClCompile Include="include\gfx\Texture.cpp" />
+    <ClCompile Include="include\level\level.cpp" />
     <ClCompile Include="include\VertexArrayObject.cpp" />
     <ClCompile Include="include\VertexBufferObject.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="OpenGL.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Camera.hpp" />
-    <ClInclude Include="include\Model.hpp" />
-    <ClInclude Include="include\Shader.hpp" />
-    <ClInclude Include="include\Texture.hpp" />
+    <ClInclude Include="include\gfx\Camera.hpp" />
+    <ClInclude Include="include\gfx\Model.hpp" />
+    <ClInclude Include="include\gfx\Shader.hpp" />
+    <ClInclude Include="include\gfx\Texture.hpp" />
+    <ClInclude Include="include\level\level.hpp" />
     <ClInclude Include="include\VertexObject.hpp" />
     <ClInclude Include="OpenGL.hpp" />
   </ItemGroup>

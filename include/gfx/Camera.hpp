@@ -7,6 +7,7 @@ public:
 	Camera();
 	Camera(float width, float height);
 	mat4 getView();
+	float* getProjection();
 	void setPos(float x, float y);
 	void setScale(float zoom);
 private:

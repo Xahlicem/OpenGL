@@ -1,6 +1,6 @@
-#include <GL\glew.h>
+#include <GL/glew.h>
 
-#include "VertexObject.hpp"
+#include "../VertexObject.hpp"
 #include "Texture.hpp"
 
 #include "Model.hpp"

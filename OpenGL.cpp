@@ -1,15 +1,15 @@
 #include <stdio.h>
 
-#include <GL\glew.h>
-#include <GL\freeglut.h>
-#include <GLFW\glfw3.h>
-#include <glm\glm.hpp>
+#include <GL/glew.h>
+#include <GL/freeglut.h>
+#include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
-#include "include\Texture.hpp"
-#include "include\Shader.hpp"
-#include "include\VertexObject.hpp"
-#include "include\Camera.hpp"
-#include "include\Model.hpp"
+#include "include/VertexObject.hpp"
+#include "include/gfx/Shader.hpp"
+#include "include/gfx/Camera.hpp"
+#include "include/gfx/Model.hpp"
+#include "include/gfx/Texture.hpp"
 
 #include "OpenGL.hpp"
 
@@ -92,7 +92,7 @@ void loop() {
 	while (!glfwWindowShouldClose(window)) {
 		programDefault.bind();
 		programDefault.setSampler(0);
-		programDefault.setProjection(cam.getView());
+		programDefault.setProjection(cam.getProjection());
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		model.draw();

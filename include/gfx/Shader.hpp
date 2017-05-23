@@ -10,7 +10,6 @@ public:
 
 	void bind();
 	int getProgram();
-	void setProjection(glm::mat4 data);
 	void setProjection(const GLfloat* data);
 	void setSampler(GLuint i);
 	void loadProgram(const char* vertFilePath, const char* fragFilePath);
