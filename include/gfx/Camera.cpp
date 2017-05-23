@@ -1,4 +1,3 @@
-#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -24,10 +23,6 @@ Camera::Camera(float width, float height) {
 	scaling = scale(iMat, vec3(1.0f));
 
 	view = projection *translation * scaling;
-}
-
-mat4 Camera::getView() {
-	return view;
 }
 
 float* Camera::getProjection() {

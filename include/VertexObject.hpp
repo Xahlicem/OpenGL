@@ -1,3 +1,4 @@
+#pragma once
 #ifndef VERTEX_OBJECT_HPP
 #define VERTEX_OBJECT_HPP
 

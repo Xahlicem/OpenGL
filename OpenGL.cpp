@@ -10,6 +10,7 @@
 #include "include/gfx/Camera.hpp"
 #include "include/gfx/Model.hpp"
 #include "include/gfx/Texture.hpp"
+#include "include/level/Level.hpp"
 
 #include "OpenGL.hpp"
 
@@ -80,14 +81,16 @@ int init() {
 }
 
 void loop() {
-	model.load(0, 0, 2, 2, 0.01f, texture_frog);
+	model.load(0, 0, 1, 1, 0.01f, texture_frog);
 
-	Model m(3, 3, 2, 2, 0.01f, texture_frog);
-	Model m1(0, 2, 2, 2, 0.02f, texture_frog);
-	Model m2(1, 0, 2, 2, -0.2f, texture_frog);
+	Model m(3, 3, 1, 2, 0.01f, texture_frog);
+	Model m1(0, 2, 2, 1, 0.02f, texture_frog);
+	Model m2(1, 0, 3, 2, -0.2f, texture_frog);
 	Model m3(2, 0, 2, 2, 0.03f, texture_frog);
 	cam = Camera(width, height);
 	cam.setScale(zoom);
+
+	Level l(64, 64, textureTiles);
 	//
 	while (!glfwWindowShouldClose(window)) {
 		programDefault.bind();
@@ -95,6 +98,7 @@ void loop() {
 		programDefault.setProjection(cam.getProjection());
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		l.draw();
 		model.draw();
 		m.draw();
 		m1.draw();

@@ -1,3 +1,4 @@
+#pragma once
 #ifndef OPEN_GL_HPP
 #define OPEN_GL_HPP
 
